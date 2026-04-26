@@ -1,0 +1,19 @@
+# Compiled C++ files
+*.exe
+*.o
+*.out
+*.obj
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Docs (keep in separate management)
+*.docx
+
+# Misc
+*.log

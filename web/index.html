@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mô phỏng mạng xã hội - Xác định bạn của bạn và gợi ý kết bạn bằng BFS">
+    <title>Social Network Simulation — BFS Friend Suggestion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="app-header">
+        <h1>🌐 Social Network Simulation</h1>
+        <p class="subtitle">Mô phỏng mạng xã hội — BFS Friend Suggestion</p>
+    </header>
+
+    <main id="app-main">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <!-- User List -->
+            <section id="user-list-section">
+                <h2>👥 Users</h2>
+                <ul id="user-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </section>
+
+            <!-- Selected User Info -->
+            <section id="user-info-section">
+                <h2>📋 User Info</h2>
+                <div id="user-info">
+                    <p class="placeholder">Click a node to view info</p>
+                </div>
+            </section>
+
+            <!-- Friend Suggestions -->
+            <section id="suggestions-section">
+                <h2>💡 Suggestions</h2>
+                <div id="suggestions-list">
+                    <p class="placeholder">Select a user first</p>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Graph Canvas -->
+        <section id="canvas-container">
+            <canvas id="graph-canvas"></canvas>
+
+            <!-- BFS Controls -->
+            <div id="bfs-controls">
+                <button id="btn-bfs-play" title="Play BFS">▶</button>
+                <button id="btn-bfs-step" title="Step">⏭</button>
+                <button id="btn-bfs-pause" title="Pause" disabled>⏸</button>
+                <button id="btn-bfs-reset" title="Reset">🔄</button>
+                <label id="speed-label">
+                    Speed
+                    <input type="range" id="speed-slider" min="100" max="2000" value="800" step="100">
+                </label>
+            </div>
+
+            <!-- BFS Info Panel -->
+            <div id="bfs-info">
+                <div class="bfs-info-item">
+                    <span class="label">Queue:</span>
+                    <span id="bfs-queue" class="value">—</span>
+                </div>
+                <div class="bfs-info-item">
+                    <span class="label">Visited:</span>
+                    <span id="bfs-visited" class="value">—</span>
+                </div>
+                <div class="bfs-info-item">
+                    <span class="label">Step:</span>
+                    <span id="bfs-step-count" class="value">0</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Legend -->
+    <footer id="legend">
+        <span class="legend-item"><span class="dot unvisited"></span> Unvisited</span>
+        <span class="legend-item"><span class="dot in-queue"></span> In Queue</span>
+        <span class="legend-item"><span class="dot visiting"></span> Visiting</span>
+        <span class="legend-item"><span class="dot visited"></span> Visited</span>
+        <span class="legend-item"><span class="dot suggested"></span> Suggested</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
