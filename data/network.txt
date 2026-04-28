@@ -1,0 +1,30 @@
+# Social Network Data
+# Format:
+#   USERS section: one username per line
+#   FRIENDSHIPS section: user1 user2 (separated by space)
+
+USERS
+An
+Binh
+Cuong
+Dung
+Em
+Phuc
+Giang
+Hoa
+Khoa
+Linh
+
+FRIENDSHIPS
+An Binh
+An Cuong
+An Dung
+Binh Cuong
+Binh Em
+Cuong Phuc
+Dung Giang
+Em Hoa
+Phuc Giang
+Giang Hoa
+Hoa Khoa
+Khoa Linh

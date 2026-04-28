@@ -40,6 +40,9 @@ public:
     // Xóa quan hệ bạn bè
     void removeFriendship(const string& u, const string& v);
 
+    // Xóa toàn bộ mạng (dùng khi load từ file)
+    void clear();
+
     // ============ TRUY VẤN ============
 
     // Lấy danh sách bạn bè của user

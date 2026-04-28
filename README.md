@@ -53,4 +53,3 @@ Mở file `web/index.html` trực tiếp trên trình duyệt, hoặc dùng Live
 
 ## 👤 Tác giả
 
-- Sinh viên — Môn: Cấu trúc dữ liệu và Giải thuật
