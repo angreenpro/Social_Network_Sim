@@ -1,0 +1,28 @@
+# Social Network Data
+# Saved automatically
+
+USERS
+An
+Binh
+Cuong
+Dung
+Em
+Giang
+Hoa
+Khoa
+Linh
+Phuc
+
+FRIENDSHIPS
+An Binh
+An Cuong
+An Dung
+Binh Cuong
+Binh Em
+Cuong Phuc
+Dung Giang
+Em Hoa
+Giang Hoa
+Giang Phuc
+Hoa Khoa
+Khoa Linh
