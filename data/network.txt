@@ -14,6 +14,7 @@ Giang
 Hoa
 Khoa
 Linh
+Duc
 
 FRIENDSHIPS
 An Binh
@@ -28,3 +29,4 @@ Phuc Giang
 Giang Hoa
 Hoa Khoa
 Khoa Linh
+Duc Giang

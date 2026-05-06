@@ -5,6 +5,7 @@ USERS
 An
 Binh
 Cuong
+Duc
 Dung
 Em
 Giang
@@ -12,16 +13,16 @@ Hoa
 Khoa
 Linh
 Phuc
-Tuan
 
 FRIENDSHIPS
 An Binh
 An Cuong
+An Duc
 An Dung
-An Tuan
 Binh Cuong
 Binh Em
 Cuong Phuc
+Duc Giang
 Dung Giang
 Em Hoa
 Giang Hoa

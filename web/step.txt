@@ -1,0 +1,12 @@
+Run in browser localhost 
+
+Load the text file `network.txt`.
+
+1. Take a screenshot of the full page.
+2. Click on the node labeled "An" on the graph canvas (it should be one of the circles with text inside). Wait 1 second.
+3. Take a screenshot showing the selected node and sidebar info.
+4. Click the ▶ (Play) button in the BFS controls at the bottom center. Wait 5 seconds for the BFS animation to play.
+5. Take a screenshot showing the BFS progress.
+6. Click the 🔄 (Reset) button to reset. Wait 1 second.
+7. Click on the node labeled "An" again. Then click the 💡 (Suggest) button. Wait 2 seconds.
+8. Take a final screenshot showing the friend suggestion visualization.

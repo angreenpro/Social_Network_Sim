@@ -7,7 +7,7 @@
     <title>Social Network Simulation — BFS Friend Suggestion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,9 +20,19 @@
     <main id="app-main">
         <!-- Sidebar -->
         <aside id="sidebar">
+            <!-- Data Load -->
+            <section id="data-section">
+                <h2>📂 Data</h2>
+                <div id="data-controls">
+                    <label for="file-input" class="file-btn" id="load-file-btn">📁 Load network.txt</label>
+                    <input type="file" id="file-input" accept=".txt" style="display:none">
+                    <p id="data-status" class="placeholder">No data loaded</p>
+                </div>
+            </section>
+
             <!-- User List -->
             <section id="user-list-section">
-                <h2>👥 Users</h2>
+                <h2>👥 Users <span id="user-count-badge" class="badge">0</span></h2>
                 <ul id="user-list">
                     <!-- Populated by JS -->
                 </ul>
@@ -51,18 +61,25 @@
 
             <!-- BFS Controls -->
             <div id="bfs-controls">
-                <button id="btn-bfs-play" title="Play BFS">▶</button>
-                <button id="btn-bfs-step" title="Step">⏭</button>
+                <button id="btn-bfs-play" title="Play BFS" disabled>▶</button>
+                <button id="btn-bfs-step" title="Next Step" disabled>⏭</button>
                 <button id="btn-bfs-pause" title="Pause" disabled>⏸</button>
                 <button id="btn-bfs-reset" title="Reset">🔄</button>
+                <div class="control-divider"></div>
+                <button id="btn-suggest" title="Suggest Friends" disabled>💡</button>
+                <div class="control-divider"></div>
                 <label id="speed-label">
                     Speed
-                    <input type="range" id="speed-slider" min="100" max="2000" value="800" step="100">
+                    <input type="range" id="speed-slider" min="100" max="2000" value="600" step="100">
                 </label>
             </div>
 
             <!-- BFS Info Panel -->
             <div id="bfs-info">
+                <div class="bfs-info-item">
+                    <span class="label">Mode:</span>
+                    <span id="bfs-mode" class="value">Idle</span>
+                </div>
                 <div class="bfs-info-item">
                     <span class="label">Queue:</span>
                     <span id="bfs-queue" class="value">—</span>
@@ -76,6 +93,9 @@
                     <span id="bfs-step-count" class="value">0</span>
                 </div>
             </div>
+
+            <!-- Tooltip -->
+            <div id="tooltip" class="hidden"></div>
         </section>
     </main>
 

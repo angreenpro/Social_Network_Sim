@@ -72,10 +72,8 @@ public:
     void clear() {
         adjList.clear();
     }
-
-    // =============================================
+ 
     //  TRUY VẤN
-    // =============================================
 
     // Lấy danh sách bạn bè (sắp xếp alphabet) — O(d log d), d = degree
     vector<string> getFriends(const string& user) const {
@@ -125,9 +123,7 @@ public:
         return users;
     }
 
-    // =============================================
     //  THUẬT TOÁN
-    // =============================================
 
     /**
      * BFS — Breadth-First Search từ node start
@@ -250,9 +246,7 @@ public:
         return result;
     }
 
-    // =============================================
     //  HIỂN THỊ
-    // =============================================
 
     // In toàn bộ adjacency list — O(V + E)
     void displayNetwork() const {
