@@ -1,0 +1,26 @@
+social_media_sim/
+├── Cmakelist.txt
+├── data/
+│   ├── users.csv
+│   └── friendships.csv
+├── include/
+│   ├── User.h
+│   ├── Graph.h
+│   ├── CSVHandler.h
+│   ├── Algorithms.h
+│   ├── Menu.h
+│   └── Visualizer.h
+├── src/
+│   ├── User.cpp
+│   ├── Graph.cpp
+│   ├── CSVHandler.cpp
+│   ├── Algorithms.cpp
+│   ├── Menu.cpp
+│   ├── Visualizer.cpp
+│   └── main.cpp
+├── tests/
+│   ├── test_graph.cpp
+│   └── test_algorithms.cpp
+└── report/
+    └── DSA_report.md
+├── README.md   
