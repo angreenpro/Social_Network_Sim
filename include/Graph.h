@@ -32,7 +32,6 @@ public:
   // Tạo User mới và thêm vào graph.
   // - Thêm User vào users map
   // - Khởi tạo tập adjacency rỗng trong adjList
-  // Complexity: O(1) average
   // -------------------------------------------------------------------------
   void addUser(int id, const std::string &name, int age,
                const std::string &location);
@@ -43,14 +42,12 @@ public:
   // - Duyệt tất cả neighbor của user, xóa user khỏi adjacency set của mỗi
   // neighbor
   // - Xóa entry của user trong adjList và users map
-  // Complexity: O(degree(id)) — phải cập nhật tất cả neighbor
   // -------------------------------------------------------------------------
   void removeUser(int id);
 
   // -------------------------------------------------------------------------
   // hasUser()
   // Kiểm tra user có tồn tại trong graph không.
-  // Complexity: O(1) average (hash map lookup)
   // -------------------------------------------------------------------------
   bool hasUser(int id) const;
 
@@ -77,7 +74,6 @@ public:
   // addEdge()
   // Thêm cạnh vô hướng giữa user u và user v.
   // - Thêm v vào adjList[u] và u vào adjList[v]
-  // Complexity: O(1) average (hash set insert)
   // -------------------------------------------------------------------------
   void addEdge(int u, int v);
 
@@ -85,7 +81,6 @@ public:
   // removeEdge()
   // Xóa cạnh giữa user u và user v.
   // - Xóa v khỏi adjList[u] và u khỏi adjList[v]
-  // Complexity: O(1) average (hash set erase)
   // -------------------------------------------------------------------------
   void removeEdge(int u, int v);
 
@@ -106,14 +101,12 @@ public:
   // -------------------------------------------------------------------------
   // getNeighbors()
   // Trả về tập hợp tất cả friend ID của user.
-  // Complexity: O(1) lookup, O(degree) để copy
   // -------------------------------------------------------------------------
   std::unordered_set<int> getNeighbors(int id) const;
 
   // -------------------------------------------------------------------------
   // getDegree()
   // Trả về số lượng bạn bè = kích thước adjList[id].
-  // Complexity: O(1)
   // -------------------------------------------------------------------------
   int getDegree(int id) const;
   // -------------------------------------------------------------------------
