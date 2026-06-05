@@ -1,0 +1,56 @@
+cmake_minimum_required(VERSION 3.16)
+project(social_network_sim LANGUAGES CXX)
+
+# ── Chuẩn C++17 ──────────────────────────────────────────────────────────────
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# ── Thư mục chứa header files ────────────────────────────────────────────────
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+# ── Source files cho chương trình chính ───────────────────────────────────────
+set(SOURCES
+    src/main.cpp
+    src/User.cpp
+    src/Graph.cpp
+    src/CSVHandler.cpp
+    src/Algorithms.cpp
+    src/Menu.cpp
+    src/Visualizer.cpp
+)
+
+# ── Tạo executable chính ─────────────────────────────────────────────────────
+add_executable(social_net ${SOURCES})
+
+# ── Copy thư mục data/ vào build directory ────────────────────────────────────
+file(COPY ${PROJECT_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR})
+
+# ── Unit Tests ────────────────────────────────────────────────────────────────
+enable_testing()
+
+# Source files dùng chung cho tests (không bao gồm main.cpp)
+set(LIB_SOURCES
+    src/User.cpp
+    src/Graph.cpp
+    src/CSVHandler.cpp
+    src/Algorithms.cpp
+    src/Menu.cpp
+    src/Visualizer.cpp
+)
+
+# Test Graph
+add_executable(test_graph
+    tests/test_graph.cpp
+    ${LIB_SOURCES}
+)
+target_include_directories(test_graph PRIVATE ${PROJECT_SOURCE_DIR}/include)
+add_test(NAME TestGraph COMMAND test_graph)
+
+# Test Algorithms
+add_executable(test_algorithms
+    tests/test_algorithms.cpp
+    ${LIB_SOURCES}
+)
+target_include_directories(test_algorithms PRIVATE ${PROJECT_SOURCE_DIR}/include)
+add_test(NAME TestAlgorithms COMMAND test_algorithms)
