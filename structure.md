@@ -23,6 +23,6 @@ social_network_sim/
 │   ├── test_graph.cpp           # Test thao tác Graph — addUser, removeUser, addEdge, removeEdge, hasEdge, getNeighbors
 │   └── test_algorithms.cpp      # Test thuật toán — BFS order, mutual friends, friend suggestion ranking, shortest path
 ├── report/                      # Thư mục chứa báo cáo
-│   └── DSA_report.md            # Báo cáo học thuật môn DSA — lý thuyết, thiết kế, phân tích độ phức tạp, kết quả
+│   └── DSA_report               # Báo cáo học thuật môn DSA — lý thuyết, thiết kế, phân tích độ phức tạp, kết quả
 └── README.md                    # Tài liệu dự án — tổng quan, cấu trúc dữ liệu, thuật toán, hướng dẫn cài đặt & chạy
 ```
