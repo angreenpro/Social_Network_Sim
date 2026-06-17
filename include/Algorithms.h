@@ -7,7 +7,16 @@
 
 // =============================================================================
 // Class Algorithms
-// Triển khai các thuật toán đồ thị cốt lõi cho mạng xã hội
+// Triển khai các thuật toán đồ thị cốt lõi cho mạng xã hội.
+//
+// Module này cung cấp "trí tuệ" của ứng dụng:
+//   - BFS traversal — duyệt đồ thị theo chiều rộng
+//   - Mutual friends — tìm bạn chung giữa 2 user
+//   - Friend suggestions — gợi ý kết bạn dựa trên 2-hop BFS
+//   - Shortest path — tìm đường đi ngắn nhất (BFS cho đồ thị không trọng số)
+//
+// Tất cả method đều là STATIC và nhận Graph bằng const& (chỉ đọc, không sửa).
+// Menu gọi các hàm này khi user chọn tính năng phân tích.
 // =============================================================================
 class Algorithms {
 public:
@@ -48,6 +57,8 @@ public:
 
     // -------------------------------------------------------------------------
     // friendSuggestions()
+    // TÍNH NĂNG CỐT LÕI — Gợi ý kết bạn dựa trên thuật toán 2-hop BFS.
+    //
     // Thuật toán:
     //   1. Lấy S1 = bạn trực tiếp của userId (1-hop neighbors)
     //   2. Với mỗi friend f trong S1, lấy neighbors(f)
