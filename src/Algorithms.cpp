@@ -4,31 +4,7 @@
 #include <unordered_map>
 #include <algorithm>
 
-// =============================================================================
-// bfsTraversal()
-// Duyệt đồ thị theo chiều rộng (Breadth-First Search) từ startId.
-//
-// Thuật toán BFS — sử dụng FIFO queue:
-//   1. Enqueue(start), đánh dấu visited
-//   2. While queue không rỗng:
-//      a. Dequeue node u → thêm vào kết quả
-//      b. Với mỗi neighbor v của u:
-//         nếu v chưa visited → enqueue(v), đánh dấu visited
-//   3. Trả về thứ tự duyệt
-//
-// TẠI SAO BFS?
-//   - BFS duyệt theo "lớp" (level) — tất cả node cách start k bước được
-//     thăm trước khi thăm node cách k+1 bước.
-//   - Phù hợp cho social network: lớp 1 = bạn trực tiếp,
-//     lớp 2 = bạn-của-bạn, v.v.
-//
-// Cấu trúc dữ liệu:
-//   - queue<int>           : FIFO frontier — đảm bảo duyệt theo thứ tự level
-//   - unordered_set<int>   : visited set — O(1) kiểm tra đã thăm
-//   - vector<int>          : result — lưu thứ tự duyệt
-//
-// Complexity: O(V + E) — mỗi node và mỗi edge được xét đúng 1 lần
-// =============================================================================
+// Duyệt đồ thị theo chiều rộng (BFS) từ startId
 std::vector<int> Algorithms::bfsTraversal(const Graph& graph, int startId) {
     std::vector<int> result;
 
@@ -67,26 +43,7 @@ std::vector<int> Algorithms::bfsTraversal(const Graph& graph, int startId) {
     return result;
 }
 
-// =============================================================================
-// getMutualFriends()
-// Tìm bạn chung giữa user u và user v.
-//
-// Thuật toán SET INTERSECTION tối ưu:
-//   mutual = neighbors(u) ∩ neighbors(v)
-//
-//   Thay vì dùng std::set_intersection (cần sorted container → O(n log n)),
-//   ta tận dụng unordered_set với O(1) lookup:
-//     1. Xác định set NHỎ HƠN (smallSet) và set LỚN HƠN (largeSet)
-//     2. Iterate qua smallSet, check membership trong largeSet
-//     → Tổng: O(min(deg(u), deg(v))) thay vì O(deg(u) + deg(v))
-//
-// Tối ưu hóa: luôn iterate set nhỏ hơn vì:
-//   - Số lần iterate = min(deg(u), deg(v))
-//   - Mỗi lần check membership = O(1) average (hash set)
-//
-// Returns: vector<int> — danh sách user ID là bạn chung của cả u và v
-// Complexity: O(min(deg(u), deg(v)))
-// =============================================================================
+// Tìm danh sách bạn bè chung giữa hai người dùng (sử dụng phép giao tập hợp)
 std::vector<int> Algorithms::getMutualFriends(const Graph& graph, int u, int v) {
     std::vector<int> mutual;
 
@@ -112,33 +69,7 @@ std::vector<int> Algorithms::getMutualFriends(const Graph& graph, int u, int v) 
     return mutual;
 }
 
-// =============================================================================
-// friendSuggestions()
-// TÍNH NĂNG CỐT LÕI — Gợi ý kết bạn dựa trên thuật toán 2-hop BFS.
-//
-// Ý tưởng: "Bạn-của-bạn mà chưa phải bạn" — người có nhiều bạn chung nhất
-// với userId sẽ được gợi ý trước (giống cơ chế "People You May Know" trên
-// Facebook/LinkedIn).
-//
-// Thuật toán chi tiết:
-//   1. Lấy S1 = bạn trực tiếp của userId (1-hop neighbors)
-//   2. 2-hop expansion:
-//      Với mỗi friend f trong S1 → lấy neighbors(f)
-//      → Gom tất cả 2-hop neighbors vào tập ứng viên (candidates)
-//   3. Lọc candidates:
-//      - Loại userId (không tự gợi ý chính mình)
-//      - Loại tất cả member của S1 (đã là bạn rồi, không cần gợi ý)
-//   4. Scoring:
-//      Với mỗi candidate w, đếm mutual friends = |neighbors(userId) ∩ neighbors(w)|
-//      → Dùng unordered_map<int, int> để đếm score cho mỗi candidate
-//   5. Sort theo score GIẢM DẦN
-//   6. Trả về top-K kết quả
-//
-// Returns: vector<pair<int, int>> — [(candidateID, mutualCount), ...] top K
-// Complexity: O(deg² + k·log(k))
-//   — deg² để duyệt toàn bộ 2-hop neighborhood
-//   — k·log(k) để sort k candidates
-// =============================================================================
+// Gợi ý kết bạn dựa trên số lượng bạn chung (sử dụng thuật toán 2-hop BFS)
 std::vector<std::pair<int, int>> Algorithms::friendSuggestions(const Graph& graph, int userId, int topK) {
     std::vector<std::pair<int, int>> suggestions;
 
@@ -185,29 +116,7 @@ std::vector<std::pair<int, int>> Algorithms::friendSuggestions(const Graph& grap
     return suggestions;
 }
 
-// =============================================================================
-// shortestPath()
-// Tìm đường đi ngắn nhất giữa source và target bằng BFS.
-//
-// TẠI SAO BFS CHỨ KHÔNG PHẢI DIJKSTRA?
-//   Đồ thị social network là UNWEIGHTED (tất cả edges có weight = 1).
-//   Với unweighted graph, BFS đảm bảo tìm shortest path vì:
-//   - BFS duyệt theo level → node được discover sớm nhất = đường đi ngắn nhất
-//   - Dijkstra cũng đúng nhưng overhead priority queue không cần thiết
-//
-// Thuật toán:
-//   1. BFS từ source
-//   2. Lưu parent[v] = u cho mỗi edge u→v được discover
-//   3. Khi tìm thấy target → truy ngược parent[] để reconstruct path
-//   4. Reverse path (vì reconstruct từ target → source)
-//
-// Edge case:
-//   - source == target → trả về [source]
-//   - Không có đường đi → trả về vector rỗng
-//
-// Returns: vector<int> — đường đi từ source đến target (inclusive cả 2 đầu)
-// Complexity: O(V + E)
-// =============================================================================
+// Tìm đường đi ngắn nhất giữa source và target bằng BFS
 std::vector<int> Algorithms::shortestPath(const Graph& graph, int source, int target) {
     std::vector<int> path;
 
