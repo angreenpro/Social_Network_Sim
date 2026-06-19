@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-06-07" agent="Antigravity" version="24.0" type="device">
+  <diagram id="class-diagram" name="Class Diagram">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="user-class" value="&lt;b&gt;User&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="320" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="user-attrs" value="- id : int&#xa;- name : string&#xa;- age : int&#xa;- location : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="user-class">
+          <mxGeometry y="26" width="320" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="user-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#6c8ebf;" vertex="1" parent="user-class">
+          <mxGeometry y="100" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="user-methods" value="+ User()&#xa;+ User(id: int, name: string, age: int, location: string)&#xa;+ getId() : int&#xa;+ getName() : string&#xa;+ getAge() : int&#xa;+ getLocation() : string&#xa;+ setName(name: string) : void&#xa;+ setAge(age: int) : void&#xa;+ setLocation(location: string) : void&#xa;+ toString() : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="user-class">
+          <mxGeometry y="108" width="320" height="232" as="geometry" />
+        </mxCell>
+
+        <mxCell id="graph-class" value="&lt;b&gt;Graph&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="440" y="80" width="380" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="graph-attrs" value="- adjList : unordered_map&lt;int, unordered_set&lt;int&gt;&gt;&#xa;- users : unordered_map&lt;int, User&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="graph-class">
+          <mxGeometry y="26" width="380" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="graph-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#82b366;" vertex="1" parent="graph-class">
+          <mxGeometry y="70" width="380" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="graph-methods" value="+ addUser(id: int, name: string, age: int, location: string) : void&#xa;+ removeUser(id: int) : void&#xa;+ hasUser(id: int) : bool&#xa;+ getUser(id: int) : User&#xa;+ getAllUserIds() : vector&lt;int&gt;&#xa;+ getUserCount() : int&#xa;+ addEdge(u: int, v: int) : void&#xa;+ removeEdge(u: int, v: int) : void&#xa;+ hasEdge(u: int, v: int) : bool&#xa;+ getEdgeCount() : int&#xa;+ getNeighbors(id: int) : unordered_set&lt;int&gt;&#xa;+ getDegree(id: int) : int&#xa;+ displayNetwork() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="graph-class">
+          <mxGeometry y="78" width="380" height="402" as="geometry" />
+        </mxCell>
+
+        <mxCell id="csv-class" value="&lt;b&gt;CSVHandler&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="500" width="380" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="csv-attrs" value="(no instance attributes)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;fontStyle=2;fontColor=#999999;" vertex="1" parent="csv-class">
+          <mxGeometry y="26" width="380" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="csv-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#d6b656;" vertex="1" parent="csv-class">
+          <mxGeometry y="50" width="380" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="csv-methods" value="+ «static» loadUsers(filename: string, graph: Graph&amp;) : void&#xa;+ «static» loadFriendships(filename: string, graph: Graph&amp;) : void&#xa;+ «static» saveUsers(filename: string, graph: const Graph&amp;) : void&#xa;+ «static» saveFriendships(filename: string, graph: const Graph&amp;) : void&#xa;+ «static» appendUser(filename: string, user: const User&amp;) : void&#xa;+ «static» appendFriendship(filename: string, u: int, v: int) : void&#xa;+ «static» rewriteUsers(filename: string, graph: const Graph&amp;) : void&#xa;+ «static» rewriteFriendships(filename: string, graph: const Graph&amp;) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="csv-class">
+          <mxGeometry y="58" width="380" height="242" as="geometry" />
+        </mxCell>
+
+        <mxCell id="algo-class" value="&lt;b&gt;Algorithms&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="900" y="80" width="420" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="algo-attrs" value="(no instance attributes)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;fontStyle=2;fontColor=#999999;" vertex="1" parent="algo-class">
+          <mxGeometry y="26" width="420" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="algo-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#9673a6;" vertex="1" parent="algo-class">
+          <mxGeometry y="50" width="420" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="algo-methods" value="+ «static» bfsTraversal(graph: const Graph&amp;, startId: int) : vector&lt;int&gt;&#xa;+ «static» getMutualFriends(graph: const Graph&amp;, u: int, v: int) : vector&lt;int&gt;&#xa;+ «static» friendSuggestions(graph: const Graph&amp;, userId: int, topK: int)&#xa;                : vector&lt;pair&lt;int, int&gt;&gt;&#xa;+ «static» shortestPath(graph: const Graph&amp;, source: int, target: int)&#xa;                : vector&lt;int&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="algo-class">
+          <mxGeometry y="58" width="420" height="172" as="geometry" />
+        </mxCell>
+
+        <mxCell id="menu-class" value="&lt;b&gt;Menu&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="900" y="380" width="420" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="menu-attrs" value="(no instance attributes)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;fontStyle=2;fontColor=#999999;" vertex="1" parent="menu-class">
+          <mxGeometry y="26" width="420" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="menu-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#b85450;" vertex="1" parent="menu-class">
+          <mxGeometry y="50" width="420" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="menu-methods" value="+ displayMenu() : void&#xa;+ run(graph: Graph&amp;) : void&#xa;─────────────────────────────────&#xa;- handleAddUser(graph: Graph&amp;) : void&#xa;- handleRemoveUser(graph: Graph&amp;) : void&#xa;- handleAddFriendship(graph: Graph&amp;) : void&#xa;- handleRemoveFriendship(graph: Graph&amp;) : void&#xa;- handleFriendCount(graph: const Graph&amp;) : void&#xa;- handleMutualFriends(graph: const Graph&amp;) : void&#xa;- handleBFS(graph: const Graph&amp;) : void&#xa;- handleShortestPath(graph: const Graph&amp;) : void&#xa;- handleFriendSuggestions(graph: const Graph&amp;) : void&#xa;- handleDisplayNetwork(graph: const Graph&amp;) : void&#xa;- handleVisualize(graph: const Graph&amp;) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="menu-class">
+          <mxGeometry y="58" width="420" height="362" as="geometry" />
+        </mxCell>
+
+        <mxCell id="viz-class" value="&lt;b&gt;Visualizer&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=13;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="500" y="620" width="320" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="viz-attrs" value="(no instance attributes)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;fontStyle=2;fontColor=#999999;" vertex="1" parent="viz-class">
+          <mxGeometry y="26" width="320" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="viz-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=10;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#666666;" vertex="1" parent="viz-class">
+          <mxGeometry y="50" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="viz-methods" value="+ drawGraph(graph: const Graph&amp;) : void&#xa;+ highlightPath(graph: const Graph&amp;, path: vector&lt;int&gt;) : void&#xa;+ exportImage(filename: string) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Consolas;fontSize=11;" vertex="1" parent="viz-class">
+          <mxGeometry y="58" width="320" height="122" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-graph-user" value="0..*" style="endArrow=diamond;endFill=1;endSize=14;html=1;strokeWidth=2;strokeColor=#333333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-attrs" target="graph-attrs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-graph-user-label" value="users map" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=11;fontColor=#666666;" vertex="1" connectable="0" parent="rel-graph-user">
+          <mxGeometry x="-0.1" y="-1" relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="rel-csv-graph" value="uses" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#d6b656;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="csv-class" target="graph-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-csv-user" value="uses" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#d6b656;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="csv-class" target="user-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-algo-graph" value="reads" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#9673a6;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="algo-class" target="graph-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-menu-graph" value="modifies" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#b85450;exitX=0;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="menu-class" target="graph-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-menu-algo" value="calls" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#b85450;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="menu-class" target="algo-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-menu-csv" value="calls" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#b85450;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="menu-class" target="csv-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-menu-viz" value="calls" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#b85450;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="menu-class" target="viz-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel-viz-graph" value="reads" style="endArrow=open;endSize=12;dashed=1;html=1;strokeWidth=1.5;strokeColor=#666666;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="viz-class" target="graph-class">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="title" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Social Network Simulation - UML Class Diagram&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="20" width="500" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-box" value="&lt;b&gt;Legend&lt;/b&gt;" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="850" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-text" value="Composition (owns lifecycle)&#xa;Dependency (uses/calls)&#xa;&#xa;static = class-level method&#xa;+ public  |  - private" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;fontFamily=Consolas;fontSize=11;" vertex="1" parent="legend-box">
+          <mxGeometry y="20" width="280" height="100" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
