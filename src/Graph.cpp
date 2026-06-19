@@ -46,6 +46,17 @@ int Graph::getUserCount() const {
     return static_cast<int>(users.size());
 }
 
+// Trả về ID tiếp theo (auto-increment): tìm max ID hiện tại + 1
+int Graph::getNextUserId() const {
+    int maxId = 0;
+    for (const auto& pair : users) {
+        if (pair.first > maxId) {
+            maxId = pair.first;
+        }
+    }
+    return maxId + 1;
+}
+
 // Thêm cạnh vô hướng giữa user u và user v
 void Graph::addEdge(int u, int v) {
     adjList[u].insert(v);

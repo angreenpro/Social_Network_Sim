@@ -7,6 +7,31 @@
 #include <limits>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
+
+// ── Helper: hiển thị danh sách user dạng bảng (dùng chung cho nhiều handler) ─
+static void displayUserList(const Graph& graph) {
+    std::vector<int> ids = graph.getAllUserIds();
+    std::sort(ids.begin(), ids.end());
+
+    std::cout << "  " << std::string(56, '-') << "\n";
+    std::cout << "  ID    Ten                          Tuoi  Noi o\n";
+    std::cout << "  " << std::string(56, '-') << "\n";
+
+    for (int id : ids) {
+        User u = graph.getUser(id);
+        std::string nameField = u.getName();
+        while (nameField.size() < 28) nameField += " ";
+        std::string locField = u.getLocation();
+
+        std::cout << "  " << std::setw(4) << std::left << id << "  "
+                  << nameField
+                  << std::setw(4) << u.getAge() << "  "
+                  << locField << "\n";
+    }
+    std::cout << "  " << std::string(56, '-') << "\n";
+    std::cout << "  Tong: " << ids.size() << " nguoi dung\n\n";
+}
 
 // ── Đường dẫn file CSV (relative — sẽ tìm trong thư mục chạy) ──────────────
 static const std::string USERS_FILE       = "data/users.csv";
@@ -94,18 +119,14 @@ void Menu::run(Graph& graph) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// [1] Thêm người dùng
+// [1] Thêm người dùng — ID tự động tăng (auto-increment)
 // ══════════════════════════════════════════════════════════════════════════════
 void Menu::handleAddUser(Graph& graph) {
     std::cout << "--- THEM NGUOI DUNG ---\n";
 
-    int id;
-    if (!readInt("  Nhap ID: ", id)) return;
-
-    if (graph.hasUser(id)) {
-        std::cout << "  [Loi] User ID " << id << " da ton tai!\n";
-        return;
-    }
+    // Auto-increment ID
+    int id = graph.getNextUserId();
+    std::cout << "  ID tu dong: " << id << "\n";
 
     std::string name = readLine("  Nhap ten: ");
     if (name.empty()) {
@@ -136,13 +157,21 @@ void Menu::handleAddUser(Graph& graph) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// [2] Xóa người dùng
+// [2] Xóa người dùng — hiển thị danh sách để chọn
 // ══════════════════════════════════════════════════════════════════════════════
 void Menu::handleRemoveUser(Graph& graph) {
-    std::cout << "--- XOA NGUOI DUNG ---\n";
+    std::cout << "--- XOA NGUOI DUNG ---\n\n";
+
+    if (graph.getUserCount() == 0) {
+        std::cout << "  [!] Khong co nguoi dung nao trong he thong.\n";
+        return;
+    }
+
+    // Hiển thị danh sách user để chọn
+    displayUserList(graph);
 
     int id;
-    if (!readInt("  Nhap ID can xoa: ", id)) return;
+    if (!readInt("  Nhap ID nguoi can xoa: ", id)) return;
 
     if (!graph.hasUser(id)) {
         std::cout << "  [Loi] User ID " << id << " khong ton tai.\n";
@@ -150,7 +179,15 @@ void Menu::handleRemoveUser(Graph& graph) {
     }
 
     User user = graph.getUser(id);
-    std::cout << "  Ban co chac muon xoa " << user.getName() << " (ID: " << id << ")? (y/n): ";
+    int friendCount = graph.getDegree(id);
+
+    std::cout << "\n  Thong tin: " << user.toString() << "\n";
+    std::cout << "  So ban be: " << friendCount << "\n";
+    if (friendCount > 0) {
+        std::cout << "  [!] Tat ca " << friendCount << " moi quan he ban be cung se bi xoa.\n";
+    }
+
+    std::cout << "  Ban co chac muon xoa? (y/n): ";
     std::string confirm;
     std::getline(std::cin, confirm);
     if (confirm != "y" && confirm != "Y") {
@@ -169,24 +206,48 @@ void Menu::handleRemoveUser(Graph& graph) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// [3] Thêm mối quan hệ bạn bè
+// [3] Thêm mối quan hệ bạn bè — hiển thị danh sách user để chọn
 // ══════════════════════════════════════════════════════════════════════════════
 void Menu::handleAddFriendship(Graph& graph) {
-    std::cout << "--- THEM MOI QUAN HE BAN BE ---\n";
+    std::cout << "--- THEM MOI QUAN HE BAN BE ---\n\n";
+
+    // Hiển thị danh sách user
+    displayUserList(graph);
 
     int u, v;
     if (!readInt("  Nhap ID nguoi 1: ", u)) return;
-    if (!readInt("  Nhap ID nguoi 2: ", v)) return;
+
+    if (!graph.hasUser(u)) {
+        std::cout << "  [Loi] User ID " << u << " khong ton tai.\n";
+        return;
+    }
+
+    // Hiển thị bạn bè hiện tại của người 1 để tránh trùng
+    std::cout << "  Ban be hien tai cua " << graph.getUser(u).getName() << ": ";
+    std::unordered_set<int> neighbors = graph.getNeighbors(u);
+    if (neighbors.empty()) {
+        std::cout << "[Chua co ban be]";
+    } else {
+        std::vector<int> sorted(neighbors.begin(), neighbors.end());
+        std::sort(sorted.begin(), sorted.end());
+        bool first = true;
+        for (int fid : sorted) {
+            if (!first) std::cout << ", ";
+            if (graph.hasUser(fid)) {
+                std::cout << graph.getUser(fid).getName() << "(" << fid << ")";
+            }
+            first = false;
+        }
+    }
+    std::cout << "\n\n";
+
+    if (!readInt("  Nhap ID nguoi 2 (de ket ban): ", v)) return;
 
     if (u == v) {
         std::cout << "  [Loi] Khong the ket ban voi chinh minh.\n";
         return;
     }
 
-    if (!graph.hasUser(u)) {
-        std::cout << "  [Loi] User ID " << u << " khong ton tai.\n";
-        return;
-    }
     if (!graph.hasUser(v)) {
         std::cout << "  [Loi] User ID " << v << " khong ton tai.\n";
         return;
@@ -210,22 +271,53 @@ void Menu::handleAddFriendship(Graph& graph) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// [4] Xóa mối quan hệ bạn bè
+// [4] Xóa mối quan hệ bạn bè — hiển thị danh sách bạn bè để chọn
 // ══════════════════════════════════════════════════════════════════════════════
 void Menu::handleRemoveFriendship(Graph& graph) {
-    std::cout << "--- XOA MOI QUAN HE BAN BE ---\n";
+    std::cout << "--- XOA MOI QUAN HE BAN BE ---\n\n";
 
-    int u, v;
-    if (!readInt("  Nhap ID nguoi 1: ", u)) return;
-    if (!readInt("  Nhap ID nguoi 2: ", v)) return;
+    // Hiển thị danh sách user
+    displayUserList(graph);
 
-    if (!graph.hasUser(u) || !graph.hasUser(v)) {
-        std::cout << "  [Loi] Mot trong hai user khong ton tai.\n";
+    int u;
+    if (!readInt("  Nhap ID nguoi muon huy ket ban: ", u)) return;
+
+    if (!graph.hasUser(u)) {
+        std::cout << "  [Loi] User ID " << u << " khong ton tai.\n";
+        return;
+    }
+
+    // Hiển thị danh sách bạn bè của user u để chọn
+    std::unordered_set<int> neighbors = graph.getNeighbors(u);
+    if (neighbors.empty()) {
+        std::cout << "  " << graph.getUser(u).getName() << " chua co ban be nao.\n";
+        return;
+    }
+
+    std::cout << "\n  Ban be cua " << graph.getUser(u).getName() << ":\n";
+    std::vector<int> sorted(neighbors.begin(), neighbors.end());
+    std::sort(sorted.begin(), sorted.end());
+
+    for (int fid : sorted) {
+        if (graph.hasUser(fid)) {
+            User f = graph.getUser(fid);
+            std::cout << "    [" << fid << "] " << f.getName()
+                      << " — " << f.getLocation() << "\n";
+        }
+    }
+
+    int v;
+    std::cout << "\n";
+    if (!readInt("  Nhap ID nguoi muon huy ket ban: ", v)) return;
+
+    if (!graph.hasUser(v)) {
+        std::cout << "  [Loi] User ID " << v << " khong ton tai.\n";
         return;
     }
 
     if (!graph.hasEdge(u, v)) {
-        std::cout << "  [Loi] Hai nguoi nay chua phai ban be.\n";
+        std::cout << "  [Loi] " << graph.getUser(u).getName() << " va "
+                  << graph.getUser(v).getName() << " chua phai ban be.\n";
         return;
     }
 

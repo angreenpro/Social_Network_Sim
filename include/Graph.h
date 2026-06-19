@@ -35,6 +35,9 @@ public:
   // Trả về tổng số user trong graph
   int getUserCount() const;
 
+  // Trả về ID tiếp theo (auto-increment: max ID hiện tại + 1)
+  int getNextUserId() const;
+
   // Thêm mối quan hệ bạn bè (cạnh vô hướng)
   void addEdge(int u, int v);
 
