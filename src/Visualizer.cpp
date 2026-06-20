@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <iomanip>
+#include <filesystem>
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Visualizer — Trực quan hóa đồ thị mạng xã hội
@@ -30,7 +31,7 @@ static std::string generateDotContent(const Graph& graph) {
     dot << "        layout=neato\n";
     dot << "        overlap=false\n";
     dot << "        splines=true\n";
-    dot << "        bgcolor=\"#1a1a2e\"\n";
+    dot << "        bgcolor=\"white\"\n";
     dot << "        pad=\"0.5\"\n";
     dot << "    ];\n\n";
 
@@ -38,10 +39,10 @@ static std::string generateDotContent(const Graph& graph) {
     dot << "    node [\n";
     dot << "        shape=circle\n";
     dot << "        style=filled\n";
-    dot << "        fillcolor=\"#0f3460\"\n";
-    dot << "        fontcolor=\"#e0e0e0\"\n";
-    dot << "        fontname=\"Arial\"\n";
-    dot << "        fontsize=9\n";
+    dot << "        fillcolor=\"lightblue\"\n";
+    dot << "        fontcolor=\"black\"\n";
+    dot << "        fontname=\"Arial Bold\"\n";
+    dot << "        fontsize=16\n";
     dot << "        color=\"#16213e\"\n";
     dot << "        penwidth=1.5\n";
     dot << "        width=0.6\n";
@@ -64,7 +65,7 @@ static std::string generateDotContent(const Graph& graph) {
         int degree = graph.getDegree(id);
 
         // Tô màu node dựa trên degree (nhiều bạn = nổi bật hơn)
-        std::string fillColor = "#0f3460";  // default: xanh đậm
+        std::string fillColor = "lightblue";  // default: xanh nhat
         double nodeWidth = 0.6;
 
         if (degree >= 8) {
@@ -122,17 +123,17 @@ static std::string generateDotWithPath(const Graph& graph, const std::vector<int
     dot << "        layout=neato\n";
     dot << "        overlap=false\n";
     dot << "        splines=true\n";
-    dot << "        bgcolor=\"#1a1a2e\"\n";
+    dot << "        bgcolor=\"white\"\n";
     dot << "        pad=\"0.5\"\n";
     dot << "    ];\n\n";
 
     dot << "    node [\n";
     dot << "        shape=circle\n";
     dot << "        style=filled\n";
-    dot << "        fillcolor=\"#0f3460\"\n";
-    dot << "        fontcolor=\"#e0e0e0\"\n";
-    dot << "        fontname=\"Arial\"\n";
-    dot << "        fontsize=9\n";
+    dot << "        fillcolor=\"lightblue\"\n";
+    dot << "        fontcolor=\"black\"\n";
+    dot << "        fontname=\"Arial Bold\"\n";
+    dot << "        fontsize=16\n";
     dot << "        color=\"#16213e\"\n";
     dot << "        penwidth=1.5\n";
     dot << "        width=0.6\n";
@@ -153,8 +154,8 @@ static std::string generateDotWithPath(const Graph& graph, const std::vector<int
         bool onPath = pathNodes.count(id) > 0;
 
         // Node thuộc path → highlight vàng sáng, viền đỏ
-        std::string fillColor = onPath ? "#f1c40f" : "#0f3460";
-        std::string fontColor = onPath ? "#1a1a2e" : "#e0e0e0";
+        std::string fillColor = onPath ? "#f1c40f" : "lightblue";
+        std::string fontColor = onPath ? "#1a1a2e" : "black";
         std::string borderColor = onPath ? "#e94560" : "#16213e";
         double penWidth = onPath ? 3.0 : 1.5;
         double nodeWidth = onPath ? 0.85 : 0.6;
@@ -216,7 +217,8 @@ void Visualizer::drawGraph(const Graph& graph) {
     std::string dotContent = generateDotContent(graph);
 
     // Ghi ra file .dot
-    std::string dotFile = "social_network.dot";
+    std::filesystem::create_directories("image/dot");
+    std::string dotFile = "image/dot/social_network.dot";
     std::ofstream file(dotFile);
     if (!file.is_open()) {
         std::cerr << "  [Loi] Khong the tao file: " << dotFile << "\n";
@@ -276,7 +278,7 @@ void Visualizer::drawGraph(const Graph& graph) {
 
     std::cout << "------------------------------------------------------------\n";
     std::cout << "  Huong dan render anh:\n";
-    std::cout << "    dot -Tpng " << dotFile << " -o social_network.png\n";
+    std::cout << "    dot -Tpng " << dotFile << " -o image/img/social_network.png\n";
     std::cout << "    (Can cai dat Graphviz: https://graphviz.org/download/)\n";
     std::cout << "============================================================\n\n";
 }
@@ -295,7 +297,9 @@ void Visualizer::highlightPath(const Graph& graph, const std::vector<int>& path)
 
     std::string dotContent = generateDotWithPath(graph, path);
 
-    std::string dotFile = "social_network_path.dot";
+    // 1. Lưu file chuẩn để tương thích Menu xuất ảnh (PNG)
+    std::filesystem::create_directories("image/dot");
+    std::string dotFile = "image/dot/social_network_path.dot";
     std::ofstream file(dotFile);
     if (!file.is_open()) {
         std::cerr << "  [Loi] Khong the tao file: " << dotFile << "\n";
@@ -304,11 +308,20 @@ void Visualizer::highlightPath(const Graph& graph, const std::vector<int>& path)
     file << dotContent;
     file.close();
 
+    // 2. Lưu file với tên theo người dùng (VD: path_1_to_5.dot) để dễ nhận biết
+    std::string specificFile = "image/dot/social_network_path_" + std::to_string(path.front()) + "_to_" + std::to_string(path.back()) + ".dot";
+    std::ofstream sFile(specificFile);
+    if (sFile.is_open()) {
+        sFile << dotContent;
+        sFile.close();
+    }
+
     std::cout << "\n";
     std::cout << "============================================================\n";
     std::cout << "         DO THI — HIGHLIGHT DUONG DI                        \n";
     std::cout << "============================================================\n";
-    std::cout << "  Da xuat file:  " << dotFile << "\n";
+    std::cout << "  Da xuat file:  " << specificFile << "\n";
+    std::cout << "  (File mac dinh " << dotFile << " cung duoc tao de Menu xuat anh)\n";
     std::cout << "  Duong di:      ";
     for (size_t i = 0; i < path.size(); i++) {
         if (i > 0) std::cout << " -> ";
@@ -326,41 +339,52 @@ void Visualizer::highlightPath(const Graph& graph, const std::vector<int>& path)
     std::cout << "    \033[31m— Do dam\033[0m   = Canh thuoc duong di\n";
     std::cout << "------------------------------------------------------------\n";
     std::cout << "  Huong dan render anh:\n";
-    std::cout << "    dot -Tpng " << dotFile << " -o social_network_path.png\n";
+    std::cout << "    dot -Tpng " << dotFile << " -o image/img/social_network_path.png\n";
     std::cout << "============================================================\n\n";
 }
 
 // Xuất file ảnh từ file .dot bằng lệnh Graphviz
 void Visualizer::exportImage(const std::string& filename) {
+    std::filesystem::create_directories("image/img");
+
     // Xác định file .dot input dựa trên tên output
     std::string dotFile;
-    if (filename.find("path") != std::string::npos) {
+    if (filename.find("path_") != std::string::npos && filename.find("_to_") != std::string::npos) {
+        dotFile = filename;
+        size_t extPos = dotFile.find(".png");
+        if (extPos != std::string::npos) {
+            dotFile.replace(extPos, 4, ".dot");
+        }
+    } else if (filename.find("path") != std::string::npos) {
         dotFile = "social_network_path.dot";
     } else {
         dotFile = "social_network.dot";
     }
 
+    std::string dotPath = "image/dot/" + dotFile;
+    std::string imgPath = "image/img/" + filename;
+
     // Kiểm tra file .dot tồn tại
-    std::ifstream checkFile(dotFile);
+    std::ifstream checkFile(dotPath);
     if (!checkFile.is_open()) {
-        std::cerr << "  [Loi] Chua co file " << dotFile
+        std::cerr << "  [Loi] Chua co file " << dotPath
                   << ". Hay chay drawGraph() hoac highlightPath() truoc.\n";
         return;
     }
     checkFile.close();
 
     // Xây dựng lệnh Graphviz: dot -Tpng input.dot -o output.png
-    std::string command = "dot -Tpng " + dotFile + " -o " + filename;
+    std::string command = "dot -Tpng " + dotPath + " -o " + imgPath;
 
     std::cout << "  Dang render: " << command << "\n";
     int result = std::system(command.c_str());
 
     if (result == 0) {
-        std::cout << "  [OK] Da xuat anh thanh cong: " << filename << "\n";
+        std::cout << "  [OK] Da xuat anh thanh cong: " << imgPath << "\n";
     } else {
         std::cerr << "  [Loi] Khong the render anh. Kiem tra Graphviz da cai dat chua.\n";
         std::cerr << "  Tai Graphviz: https://graphviz.org/download/\n";
         std::cerr << "  Hoac dung online: https://dreampuf.github.io/GraphvizOnline/\n";
-        std::cerr << "  File .dot van co san tai: " << dotFile << "\n";
+        std::cerr << "  File .dot van co san tai: " << dotPath << "\n";
     }
 }

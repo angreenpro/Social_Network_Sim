@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
+#include <cstdlib>
 
 // ── Helper: hiển thị danh sách user dạng bảng (dùng chung cho nhiều handler) ─
 static void displayUserList(const Graph& graph) {
@@ -115,6 +116,9 @@ void Menu::run(Graph& graph) {
                 std::cout << "  [Loi] Lua chon khong hop le. Vui long chon 0-11.\n";
                 break;
         }
+        
+        std::cout << "\n  [ Nhan phim bat ky de tiep tuc... ]\n";
+        std::system("pause > nul");
     }
 }
 
@@ -431,16 +435,19 @@ void Menu::handleBFS(const Graph& graph) {
     std::cout << "  Tong so node duyet duoc: " << order.size()
               << " / " << graph.getUserCount() << "\n\n";
 
-    // Hiển thị theo từng level (ước lượng)
-    int count = 0;
+    // Hiển thị theo dạng: NodeA -> NodeB -> NodeC
+    bool first = true;
     for (int id : order) {
         if (graph.hasUser(id)) {
             User u = graph.getUser(id);
-            std::cout << "    [" << (count + 1) << "] "
-                      << u.getName() << " (ID: " << id << ")\n";
+            if (!first) {
+                std::cout << " -> ";
+            }
+            std::cout << u.getName() << " (ID: " << id << ")";
+            first = false;
         }
-        count++;
     }
+    std::cout << "\n";
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -485,6 +492,14 @@ void Menu::handleShortestPath(const Graph& graph) {
         if (ans == "y" || ans == "Y") {
             Visualizer vis;
             vis.highlightPath(graph, path);
+            
+            std::cout << "  Ban co muon render luon anh PNG khong? (y/n): ";
+            std::string ansImg;
+            std::getline(std::cin, ansImg);
+            if (ansImg == "y" || ansImg == "Y") {
+                std::string specificPng = "social_network_path_" + std::to_string(path.front()) + "_to_" + std::to_string(path.back()) + ".png";
+                vis.exportImage(specificPng);
+            }
         }
     }
 }
