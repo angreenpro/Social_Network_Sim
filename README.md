@@ -214,9 +214,6 @@ social_network_sim/
 - g++ hoặc clang++
 
 ### Build
-
-Vì máy bạn không cài đặt CMake nên chúng ta sẽ sử dụng trực tiếp trình biên dịch `g++` (đã có sẵn) thông qua file kịch bản `build.bat` tôi đã tạo sẵn.
-
 Mở terminal (PowerShell hoặc CMD) và chạy:
 
 ```bash
