@@ -215,22 +215,39 @@ social_network_sim/
 
 ### Build
 
-```bash
-git clone [https://github.com/your-username/social-network-sim.git](https://github.com/your-username/social-network-sim.git)
-cd social-network-sim
+Vì máy bạn không cài đặt CMake nên chúng ta sẽ sử dụng trực tiếp trình biên dịch `g++` (đã có sẵn) thông qua file kịch bản `build.bat` tôi đã tạo sẵn.
 
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Chạy
+Mở terminal (PowerShell hoặc CMD) và chạy:
 
 ```bash
-./social_net
+# Biên dịch toàn bộ dự án
+.\build.bat
 ```
 
-Chương trình tự động đọc `data/users.csv` và `data/friendships.csv` khi khởi động.
+Sau khi hoàn tất, các file thực thi (`.exe`) sẽ được tạo thẳng ở thư mục gốc.
+
+### Chạy Chương trình Chính
+
+Chương trình chính tự động đọc `data/users.csv` và `data/friendships.csv` khi khởi động.
+```bash
+# Chạy chương trình tương tác (CLI)
+.\social_net.exe
+```
+
+### Chạy Unit Tests và Performance Tests
+
+Dự án bao gồm các bộ test để kiểm tra tính đúng đắn và hiệu năng của cấu trúc dữ liệu và thuật toán.
+
+```bash
+# Test cấu trúc đồ thị cơ bản
+.\test_graph.exe
+
+# Test tính đúng đắn của các thuật toán
+.\test_algorithms.exe
+
+# Test hiệu năng với dữ liệu lớn (V=100.000, E=2.000.000)
+.\test_performance.exe
+```
 
 ---
 
