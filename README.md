@@ -1,4 +1,4 @@
-# Social Network Sim
+# MI3060 - Cấu trúc dữ liệu và giải thuật - Social Network Simulator
 
 > Dự án mô phỏng mạng xã hội thu nhỏ, tập trung vào **Cấu trúc Dữ liệu và Thuật toán (DSA)** — với tính năng chính là xác định *"người quen của người quen"* và đưa ra **gợi ý kết bạn**.
 
